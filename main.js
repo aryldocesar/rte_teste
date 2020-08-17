@@ -86,13 +86,14 @@
         
         var campo_pessoa = document.getElementById("pessoa");
         var pessoa_nome = campo_pessoa.value;
+        var divPessoas = document.querySelectorAll('.divPessoa');
+        cont_id = divPessoas.length;
+
 
         if(pessoa_nome!="" && pessoa_nome != null){
-            
             criarTabela(pessoa_nome, cont_id);
             textArea.value = JSON.stringify(arrayFinal, null, 8);
             campo_pessoa.value="";
-            cont_id++;
         }
         
     }
@@ -126,7 +127,6 @@
         var filho_removido = this.getAttribute('posicao_filho');
         var tbody = document.querySelector('[pessoa_tbody="'+id_tbody+'"]');
         var tr_filho = tbody.querySelector('[filho="'+id_filho+'"]');
-        console.log(filho_removido);
         pessoas[id_tbody].filhos.splice(filho_removido,1);
 
         tbody.removeChild(tr_filho);
