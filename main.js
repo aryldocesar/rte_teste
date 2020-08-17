@@ -123,14 +123,20 @@
         e.preventDefault();
         var id_filho = this.getAttribute('linha_filho');
         var id_tbody = this.getAttribute('tbody');
+        var filho_removido = this.getAttribute('posicao_filho');
         var tbody = document.querySelector('[pessoa_tbody="'+id_tbody+'"]');
         var tr_filho = tbody.querySelector('[filho="'+id_filho+'"]');
-        
-        var filho_removido = parseInt(id_filho-1);
+        console.log(filho_removido);
         pessoas[id_tbody].filhos.splice(filho_removido,1);
+
         tbody.removeChild(tr_filho);
-        
-        pessoas_final =[];
+        var tbody = document.querySelector('[pessoa_tbody="'+id_tbody+'"]');
+        var trFilhos = tbody.querySelectorAll('.btnRemoveFilho');
+
+        trFilhos.forEach(function(index, value){
+            index.setAttribute('posicao_filho', value);
+        });
+
         textArea.value = JSON.stringify(arrayFinal, null, 8);
     }
 
@@ -149,6 +155,7 @@
         btnRemoverFilho.id = cont_filho;
         btnRemoverFilho.className = "btnRemoveFilho";
         btnRemoverFilho.setAttribute('linha_filho', cont_filho);
+        btnRemoverFilho.setAttribute('posicao_filho', cont_filho-1);
         btnRemoverFilho.setAttribute('tbody', id);
 
         nome_filho_p = document.createTextNode(nome_filho);
@@ -167,7 +174,6 @@
         
         pessoas[id].filhos.push(nome_filho);
         
-        pessoas_final=[];
     }
 
     function criarTabela(nome_pes, pessoaId){
@@ -225,7 +231,6 @@
                 pessoas.push(pessoa);
 
                 
-                pessoas_final = [];
                 
             
     }
